@@ -1,0 +1,436 @@
+/* 全局样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-color: #f0f0f0;
+    --panel-bg: #ffffff;
+    --text-color: #333333;
+    --border-color: #e5e5e5;
+    --message-sent-bg: #95EC69;
+    --message-received-bg: #ffffff;
+    --header-bg: #f7f7f7;
+    --primary-button-bg: #07C160;
+    --primary-button-hover: #06ae56;
+}
+
+/* 深色模式 */
+[data-theme="dark"] {
+    --bg-color: #1f1f1f;
+    --panel-bg: #2d2d2d;
+    --text-color: #ffffff;
+    --border-color: #404040;
+    --message-sent-bg: #0d7a3d;
+    --message-received-bg: #383838;
+    --header-bg: #2d2d2d;
+    --primary-button-bg: #07C160;
+    --primary-button-hover: #06ae56;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.container {
+    display: flex;
+    max-width: 1200px;
+    margin: 20px auto;
+    gap: 20px;
+    height: calc(100vh - 40px);
+}
+
+/* 左侧编辑面板 */
+.editor-panel {
+    flex: 1;
+    background: var(--panel-bg);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    overflow-y: auto;
+}
+
+.settings-section, .message-editor, .avatar-section {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.setting-item {
+    margin: 10px 0;
+}
+
+.setting-item label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--text-color);
+}
+
+.setting-item input, .setting-item select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--panel-bg);
+    color: var(--text-color);
+}
+
+/* 消息操作按钮 */
+.message-actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+/* 头像上传区域 */
+.avatar-upload {
+    display: flex;
+    gap: 20px;
+}
+
+.avatar-item {
+    flex: 1;
+}
+
+.avatar-preview {
+    width: 80px;
+    height: 80px;
+    border-radius: 4px;
+    background: #ddd;
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.avatar-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 右侧预览面板 */
+.preview-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.phone-container {
+    width: 375px;
+    height: 667px;
+    background: var(--panel-bg);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* 状态栏样式 */
+.status-bar {
+    height: 20px;
+    background: var(--header-bg);
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    align-items: center;
+    font-size: 12px;
+    color: var(--text-color);
+}
+
+.status-icons {
+    display: flex;
+    gap: 5px;
+}
+
+/* 电池图标 */
+.battery {
+    width: 20px;
+    height: 10px;
+    border: 1px solid currentColor;
+    border-radius: 2px;
+    position: relative;
+    padding: 1px;
+}
+
+.battery-level {
+    display: block;
+    height: 100%;
+    background: currentColor;
+    width: 80%;
+}
+
+/* 聊天标题栏 */
+.chat-header {
+    height: 44px;
+    background: var(--header-bg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-color);
+}
+
+.contact-name {
+    font-size: 17px;
+    font-weight: 500;
+}
+
+/* 聊天容器 */
+.chat-container {
+    height: calc(100% - 114px);
+    background: var(--bg-color);
+    overflow-y: auto;
+    padding: 10px;
+}
+
+/* 输入区域样式 */
+.input-area {
+    height: 50px;
+    background: var(--panel-bg);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    gap: 10px;
+}
+
+.voice-btn, .plus-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+}
+
+.voice-btn svg, .plus-btn svg {
+    fill: #7d7d7d;
+    width: 24px;
+    height: 24px;
+}
+
+.voice-btn:hover svg, .plus-btn:hover svg {
+    fill: #595959;
+}
+
+.input-wrapper {
+    flex: 1;
+    height: 36px;
+}
+
+.input-wrapper input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: var(--bg-color);
+    border-radius: 4px;
+    padding: 0 12px;
+    font-size: 14px;
+    color: var(--text-color);
+}
+
+.input-wrapper input:focus {
+    outline: none;
+}
+
+.input-wrapper input::placeholder {
+    color: #999;
+}
+
+/* 按钮样式 */
+.primary-button {
+    background: var(--primary-button-bg);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.primary-button:hover {
+    background: var(--primary-button-hover);
+}
+
+/* 预览控制区域 */
+.preview-controls {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* 消息样式 */
+.message {
+    margin: 10px 0;
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+}
+
+.message.sent {
+    flex-direction: row-reverse;
+}
+
+.message .time {
+    font-size: 12px;
+    color: #999;
+    margin: 5px 0;
+    text-align: center;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    margin: 0 10px;
+    overflow: hidden;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.message-content {
+    max-width: 60%;
+    padding: 10px;
+    border-radius: 4px;
+    word-wrap: break-word;
+}
+
+.message.received .message-content {
+    background: var(--message-received-bg);
+}
+
+.message.sent .message-content {
+    background: var(--message-sent-bg);
+}
+
+/* 系统消息 */
+.message.system {
+    justify-content: center;
+}
+
+.message.system .message-content {
+    background: transparent;
+    color: #999;
+    font-size: 12px;
+    padding: 5px 10px;
+}
+
+/* 图片消息 */
+.message-content.image {
+    padding: 0;
+    overflow: hidden;
+}
+
+.message-content.image img {
+    max-width: 100%;
+    display: block;
+}
+
+/* 表情选择器 */
+.emoji-picker {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--panel-bg);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    padding: 10px;
+    z-index: 1000;
+}
+
+.emoji-picker.active {
+    display: block;
+}
+
+.emoji-container {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 5px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.emoji-item {
+    font-size: 24px;
+    padding: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.emoji-item:hover {
+    background: rgba(0,0,0,0.1);
+    border-radius: 4px;
+}
+
+/* 加号功能面板 */
+.plus-panel {
+    display: none;
+    position: fixed;
+    bottom: 60px;
+    right: 50%;
+    transform: translateX(50%);
+    background: var(--panel-bg);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    padding: 15px;
+    z-index: 1000;
+}
+
+.plus-panel.active {
+    display: block;
+}
+
+.plus-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.plus-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.plus-item:hover {
+    background-color: rgba(0,0,0,0.05);
+}
+
+.plus-icon {
+    width: 50px;
+    height: 50px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+
+.plus-icon svg {
+    fill: #07C160;
+}
+
+.plus-item span {
+    font-size: 12px;
+    color: var(--text-color);
+} 

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>微信聊天记录生成器</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/emoji-mart@latest/css/emoji-mart.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 左侧编辑区域 -->
+        <div class="editor-panel">
+            <div class="settings-section">
+                <h2>基本设置</h2>
+                <div class="setting-item">
+                    <label for="contact-name">联系人名称：</label>
+                    <input type="text" id="contact-name" value="张三">
+                </div>
+                <div class="setting-item">
+                    <label for="theme-mode">主题模式：</label>
+                    <select id="theme-mode">
+                        <option value="light">浅色模式</option>
+                        <option value="dark">深色模式</option>
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <label for="status-time">状态栏时间：</label>
+                    <input type="time" id="status-time" value="14:30">
+                </div>
+                <div class="setting-item">
+                    <label for="battery-level">电池电量：</label>
+                    <input type="number" id="battery-level" min="0" max="100" value="80">
+                </div>
+                <div class="setting-item">
+                    <label>网络状态：</label>
+                    <select id="network-type">
+                        <option value="5G">5G</option>
+                        <option value="4G">4G</option>
+                        <option value="WiFi">WiFi</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="message-editor">
+                <h2>消息编辑</h2>
+                <div class="message-actions">
+                    <button id="add-text" class="primary-button">添加文本</button>
+                    <button id="add-image" class="primary-button">添加图片</button>
+                    <button id="add-emoji" class="primary-button">添加表情</button>
+                    <button id="add-system" class="primary-button">系统消息</button>
+                </div>
+                <div id="messages-list">
+                    <!-- 消息列表将通过JavaScript动态生成 -->
+                </div>
+            </div>
+
+            <div class="avatar-section">
+                <h2>头像设置</h2>
+                <div class="avatar-upload">
+                    <div class="avatar-item">
+                        <label>我的头像：</label>
+                        <input type="file" id="my-avatar" accept="image/*">
+                        <div class="avatar-preview" id="my-avatar-preview"></div>
+                    </div>
+                    <div class="avatar-item">
+                        <label>对方头像：</label>
+                        <input type="file" id="other-avatar" accept="image/*">
+                        <div class="avatar-preview" id="other-avatar-preview"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 右侧预览区域 -->
+        <div class="preview-panel">
+            <div class="phone-container" id="phone-container">
+                <!-- 手机状态栏 -->
+                <div class="status-bar">
+                    <span class="time">14:30</span>
+                    <div class="status-icons">
+                        <span class="signal"></span>
+                        <span class="network-type">5G</span>
+                        <span class="battery"><span class="battery-level"></span></span>
+                    </div>
+                </div>
+
+                <!-- 聊天标题栏 -->
+                <div class="chat-header">
+                    <span class="back-button">返回</span>
+                    <span class="contact-name">张三</span>
+                    <span class="more-button">更多</span>
+                </div>
+
+                <!-- 聊天内容区域 -->
+                <div class="chat-container" id="chat-preview">
+                    <!-- 聊天内容将通过JavaScript动态生成 -->
+                </div>
+
+                <!-- 底部输入区域 -->
+                <div class="input-area">
+                    <button class="voice-btn">
+                        <svg t="1701910425652" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4286" width="24" height="24">
+                            <path d="M512 608c61.856 0 112-50.144 112-112V224c0-61.856-50.144-112-112-112S400 162.144 400 224v272c0 61.856 50.144 112 112 112z m-64-384c0-35.296 28.704-64 64-64s64 28.704 64 64v272c0 35.296-28.704 64-64 64s-64-28.704-64-64V224z" p-id="4287"></path>
+                            <path d="M720 448c0-13.248-10.752-24-24-24s-24 10.752-24 24c0 88.224-71.776 160-160 160s-160-71.776-160-160c0-13.248-10.752-24-24-24s-24 10.752-24 24c0 108.416 83.584 197.44 190.464 205.216V752h-120c-13.248 0-24 10.752-24 24s10.752 24 24 24h288c13.248 0 24-10.752 24-24s-10.752-24-24-24h-120v-98.784C629.92 645.44 720 556.416 720 448z" p-id="4288"></path>
+                        </svg>
+                    </button>
+                    <div class="input-wrapper">
+                        <input type="text" placeholder="发送消息" id="message-input">
+                    </div>
+                    <button class="plus-btn">
+                        <svg t="1701910461065" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5411" width="24" height="24">
+                            <path d="M512 832a32 32 0 0 1-32-32v-256H224a32 32 0 0 1 0-64h256V224a32 32 0 0 1 64 0v256h256a32 32 0 0 1 0 64h-256v256a32 32 0 0 1-32 32" p-id="5412"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="preview-controls">
+                <button id="export-image" class="primary-button">导出图片</button>
+                <select id="export-quality">
+                    <option value="1">最高质量</option>
+                    <option value="0.8">高质量</option>
+                    <option value="0.6">中等质量</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- 表情选择器对话框 -->
+    <div id="emoji-picker" class="emoji-picker">
+        <div class="emoji-container">
+            <!-- 表情将通过JavaScript动态生成 -->
+        </div>
+    </div>
+
+    <!-- 加号功能面板 -->
+    <div id="plus-panel" class="plus-panel">
+        <div class="plus-grid">
+            <div class="plus-item" id="send-image">
+                <div class="plus-icon">
+                    <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32">
+                        <path d="M896 626.592V224c0-53.024-43.008-96-96-96H224c-53.024 0-96 42.976-96 96v576c0 53.024 42.976 96 96 96h576c53.024 0 96-42.976 96-96v-1.984c0-0.672-0.096-1.312-0.128-1.984 0.032-0.672 0.128-1.312 0.128-1.984v-167.456zM224 176h576c26.464 0 48 21.536 48 48v322.592l-161.984-161.984c-24.512-24.512-64.384-24.512-88.896 0l-27.584 27.584-145.984-145.984c-24.512-24.512-64.384-24.512-88.896 0L176 425.408V224c0-26.464 21.536-48 48-48z m576 672H224c-26.464 0-48-21.536-48-48V489.984l192-192 146.016 146.016c12.512 12.512 32.736 12.512 45.248 0l27.584-27.584c12.512-12.512 32.736-12.512 45.248 0L800 584.864V800c0 26.464-21.536 48-48 48z" p-id="5413"></path>
+                        <path d="M352 368c35.296 0 64-28.704 64-64s-28.704-64-64-64-64 28.704-64 64 28.704 64 64 64z" p-id="5414"></path>
+                    </svg>
+                </div>
+                <span>图片</span>
+            </div>
+            <div class="plus-item" id="send-file">
+                <div class="plus-icon">
+                    <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32">
+                        <path d="M546.133333 635.259259c-3.792593 3.792593-8.438519 5.688889-13.084444 5.688889s-9.291852-1.896296-13.084445-5.688889c-7.585185-7.585185-7.585185-19.437037 0-27.022222l172.562963-172.562963c7.585185-7.585185 19.437037-7.585185 27.022223 0 7.585185 7.585185 7.585185 19.437037 0 27.022222L546.133333 635.259259zM532.195556 789.333333c-45.511111 0-88.367407-17.777778-120.604445-50.014814-66.37037-66.37037-66.37037-174.459259 0-240.829630L583.111111 326.968889c25.125926-25.125926 58.785185-39.822222 93.297778-39.822222 35.365926 0 68.172222 13.937778 93.297778 39.822222 51.911111 51.911111 51.911111 135.537778 0 187.448889l-171.709334 171.709333c-18.204444 18.204444-42.666667 28.444444-68.172222 28.444445-25.505556 0-49.967407-9.481481-68.171852-28.444445-37.262222-37.262222-37.262222-98.228148 0-135.490371l160.521482-159.668741c7.585185-7.585185 19.437037-7.585185 27.022222 0 7.585185 7.585185 7.585185 19.437037 0 27.022222L488.296296 577.422222c-22.755556 22.755556-22.755556 59.259259 0 81.731852 10.903704 10.903704 25.505556 17.066667 41.149629 17.066667s30.245926-6.162963 41.149629-17.066667l171.709334-171.709333c36.74074-36.74074 36.74074-96.331852 0-133.072593-17.777778-17.777778-41.149630-27.259259-66.37037-27.259259s-48.592593 9.481481-66.37037 27.259259L437.096296 526.791111c-51.057778 51.057778-51.057778 134.684444 0 185.742222 24.746667 24.746667 57.554074 38.684444 92.444445 38.684445 34.89037 0 67.697778-13.937778 92.444444-38.684445l171.709334-171.709333c7.585185-7.585185 19.437037-7.585185 27.022222 0 7.585185 7.585185 7.585185 19.437037 0 27.022222L648.817778 739.555556c-32.237037 32.237037-74.24 49.777778-116.622222 49.777777z" p-id="6538"></path>
+                    </svg>
+                </div>
+                <span>文件</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
